@@ -103779,7 +103779,7 @@ class CameraManager {
         const frameCamera = createFrameCamera(bbox, camera0.fov);
         const resetCamera = createCamera(new Vec3(camera0.position), new Vec3(camera0.target), camera0.fov);
         const orbitMaxDistance = settings.orbitMaxDistance ?? Math.max(bbox.halfExtents.length() * 4, 5);
-        const orbitMinY = 0;
+        const orbitMinY = settings.orbitMinY ?? 0;
         const getAnimTrack = (initial, isObjectExperience) => {
             const { animTracks } = settings;
             // extract the camera animation track from settings

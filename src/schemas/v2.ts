@@ -86,6 +86,7 @@ type ExperienceSettings = {
     startMode: 'default' | 'animTrack' | 'annotation',
 
     orbitMaxDistance?: number,
+    orbitMinY?: number,
     hasStartPose?: boolean
 };
 
