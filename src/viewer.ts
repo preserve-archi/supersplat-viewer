@@ -288,6 +288,9 @@ class Viewer {
             cameraEntity.camera.nearClip = near;
         };
 
+        const cameraInfoTarget = new Vec3();
+        let splatCount = 0;
+
         // handle application update
         app.on('update', (deltaTime) => {
             // in xr mode we leave the camera alone
@@ -304,6 +307,11 @@ class Viewer {
 
                 // apply to the camera entity
                 applyCamera(this.cameraManager.camera);
+
+                if (!config.noui) {
+                    this.cameraManager.camera.calcFocusPoint(cameraInfoTarget);
+                    events.fire('cameraInfo', this.cameraManager.camera.position, cameraInfoTarget, this.cameraManager.camera.distance, splatCount);
+                }
             }
         });
 
@@ -315,7 +323,9 @@ class Viewer {
         // wait for the model to load
         Promise.all([gsplatLoad, skyboxLoad, skydomeLoad]).then((results) => {
             const gsplat = results[0].gsplat as GSplatComponent;
+
             const skydomeTexture = results[2];
+            splatCount = gsplat.resource?.numSplats ?? 0;
 
             // get scene bounding box
             const gsplatBbox = gsplat.customAabb;
