@@ -102667,14 +102667,10 @@ const initUI = (global) => {
     dom.infoPanel.addEventListener('pointerdown', () => {
         dom.infoPanel.classList.add('hidden');
     });
-    dom.cameraInfoPanel.addEventListener('pointerdown', () => {
-        dom.cameraInfoPanel.classList.add('hidden');
-    });
     events.on('inputEvent', (event) => {
         if (event === 'cancel') {
             // close info panel on cancel
             dom.infoPanel.classList.add('hidden');
-            dom.cameraInfoPanel.classList.add('hidden');
             dom.settingsPanel.classList.add('hidden');
             // close fullscreen on cancel
             if (state.isFullscreen) {
@@ -102683,7 +102679,6 @@ const initUI = (global) => {
         }
         else if (event === 'interrupt') {
             dom.settingsPanel.classList.add('hidden');
-            dom.cameraInfoPanel.classList.add('hidden');
         }
     });
     const toggleCameraInfo = () => {
