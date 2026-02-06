@@ -24,10 +24,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/playcanvas/supersplat-viewer.git"
+    "url": "git+https://github.com/preserve-archi/supersplat-viewer.git"
   },
   "bugs": {
-    "url": "https://github.com/playcanvas/supersplat-viewer/issues"
+    "url": "https://github.com/preserve-archi/supersplat-viewer/issues"
   },
   "files": [
     "dist",
