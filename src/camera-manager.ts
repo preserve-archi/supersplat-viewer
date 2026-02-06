@@ -74,6 +74,7 @@ class CameraManager {
             anim: animTrack ? new AnimController(animTrack) : null
         };
 
+        controllers.orbit.setZoomRange(orbitMaxDistance);
         const getController = (cameraMode: 'orbit' | 'anim' | 'fly'): CameraController => {
             return controllers[cameraMode];
         };
