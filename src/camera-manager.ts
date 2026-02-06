@@ -168,6 +168,7 @@ class CameraManager {
                 case 'cancel':
                 case 'interrupt':
                     if (state.cameraMode === 'anim') {
+                        fromMode = 'orbit'; // added this line to ensure we return to orbit mode after cancelling animation
                         state.cameraMode = fromMode;
                     }
                     break;
