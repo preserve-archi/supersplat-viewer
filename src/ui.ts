@@ -52,9 +52,9 @@ const initUI = (global: Global) => {
     events.on('progress:changed', (progress) => {
         dom.loadingText.textContent = `${progress}%`;
         if (progress < 100) {
-            dom.loadingBar.style.backgroundImage = `linear-gradient(90deg, #F60 0%, #F60 ${progress}%, white ${progress}%, white 100%)`;
+            dom.loadingBar.style.backgroundImage = `linear-gradient(90deg, #51a2ff 0%, #c27aff ${progress}%, white ${progress}%, white 100%)`;
         } else {
-            dom.loadingBar.style.backgroundImage = 'linear-gradient(90deg, #F60 0%, #F60 100%)';
+            dom.loadingBar.style.backgroundImage = 'linear-gradient(90deg, #51a2ff 0%, #c27aff 100%)';
         }
     });
 
