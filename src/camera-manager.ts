@@ -14,6 +14,8 @@ import { CameraMode, Global } from './types';
 
 const tmpCamera = new Camera();
 const tmpv = new Vec3();
+const tmpFocus = new Vec3();
+const tmpDir = new Vec3();
 
 const createCamera = (position: Vec3, target: Vec3, fov: number) => {
     const result = new Camera();
@@ -44,6 +46,8 @@ class CameraManager {
         const camera0 = settings.cameras[0].initial;
         const frameCamera = createFrameCamera(bbox, camera0.fov);
         const resetCamera = createCamera(new Vec3(camera0.position), new Vec3(camera0.target), camera0.fov);
+        const orbitMaxDistance = settings.orbitMaxDistance ?? Math.max(bbox.halfExtents.length() * 4, 5);
+        const orbitMinY = 0;
 
         const getAnimTrack = (initial: Camera, isObjectExperience: boolean) => {
             const { animTracks } = settings;
@@ -70,6 +74,7 @@ class CameraManager {
             anim: animTrack ? new AnimController(animTrack) : null
         };
 
+        controllers.orbit.setZoomRange(orbitMaxDistance);
         const getController = (cameraMode: 'orbit' | 'anim' | 'fly'): CameraController => {
             return controllers[cameraMode];
         };
@@ -105,6 +110,26 @@ class CameraManager {
             const controller = getController(state.cameraMode);
 
             controller.update(dt, frame, target);
+
+            if (state.cameraMode === 'orbit') {
+                target.calcFocusPoint(tmpFocus);
+                let adjusted = false;
+
+                if (target.position.y < orbitMinY) {
+                    target.position.y = orbitMinY;
+                    adjusted = true;
+                }
+
+                if (target.distance > orbitMaxDistance) {
+                    tmpDir.sub2(target.position, tmpFocus).normalize();
+                    target.position.copy(tmpFocus).add(tmpDir.mulScalar(orbitMaxDistance));
+                    adjusted = true;
+                }
+
+                if (adjusted) {
+                    target.look(target.position, tmpFocus);
+                }
+            }
 
             if (transitionTimer < 1) {
                 // lerp away from previous camera during transition

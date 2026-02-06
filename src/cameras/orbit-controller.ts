@@ -20,6 +20,10 @@ class OrbitController implements CameraController {
         this.controller.zoomDamping = 0.97;
     }
 
+    setZoomRange(maxDistance: number, minDistance = 0.01) {
+        this.controller.zoomRange = new Vec2(minDistance, maxDistance);
+    }
+
     onEnter(camera: Camera): void {
         p.position.copy(camera.position);
         p.angles.copy(camera.angles);
