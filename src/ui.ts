@@ -173,15 +173,10 @@ const initUI = (global: Global) => {
         dom.infoPanel.classList.add('hidden');
     });
 
-    dom.cameraInfoPanel.addEventListener('pointerdown', () => {
-        dom.cameraInfoPanel.classList.add('hidden');
-    });
-
     events.on('inputEvent', (event) => {
         if (event === 'cancel') {
             // close info panel on cancel
             dom.infoPanel.classList.add('hidden');
-            dom.cameraInfoPanel.classList.add('hidden');
             dom.settingsPanel.classList.add('hidden');
 
             // close fullscreen on cancel
@@ -190,7 +185,6 @@ const initUI = (global: Global) => {
             }
         } else if (event === 'interrupt') {
             dom.settingsPanel.classList.add('hidden');
-            dom.cameraInfoPanel.classList.add('hidden');
         }
     });
 
